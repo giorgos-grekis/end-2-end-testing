@@ -7,5 +7,7 @@ describe("tasks management", () => {
 
     // when the cypress click an element by default picks the center of the item.
     cy.get(".backdrop").click({ force: true });
+    cy.get(".backdrop").should("not.exist");
+    cy.get(".modal").should("not.exist");
   });
 });
