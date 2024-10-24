@@ -1,3 +1,4 @@
+// https://docs.cypress.io/api/commands/and
 describe("page navigation", () => {
   it("should navigate between pages", () => {
     cy.visit("http://localhost:5173/");
