@@ -1,18 +1,19 @@
-import { useState } from 'react';
-import Header from './components/Header';
-import Modal from './components/Modal';
+import { useState } from "react";
+import Header from "./components/Header";
+import Modal from "./components/Modal";
 
-import NewTask from './components/NewTask';
-import TaskControl from './components/TaskControl';
-import TaskList from './components/TaskList';
+import NewTask from "./components/NewTask";
+import TaskControl from "./components/TaskControl";
+import TaskList from "./components/TaskList";
+import logo from "./assets/logo.png";
 
 function App() {
   const [isAddingTask, setIsAddingTask] = useState(false);
   const [tasks, setTasks] = useState([]);
-  const [appliedFilter, setAppliedFilter] = useState('all');
+  const [appliedFilter, setAppliedFilter] = useState("all");
 
   const displayedTasks = tasks.filter((task) => {
-    if (appliedFilter === 'all') {
+    if (appliedFilter === "all") {
       return true;
     }
     return task.category === appliedFilter;
@@ -52,10 +53,9 @@ function App() {
       )}
       <Header />
       <main>
-        <TaskControl
-          onStartAddTask={startAddTaskHandler}
-          onSetFilter={setFilterHandler}
-        />
+        <img src={logo} alt="A list" />
+
+        <TaskControl onStartAddTask={startAddTaskHandler} onSetFilter={setFilterHandler} />
         <TaskList tasks={displayedTasks} />
       </main>
     </>

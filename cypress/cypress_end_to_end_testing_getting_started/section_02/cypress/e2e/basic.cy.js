@@ -7,11 +7,15 @@ describe("tasks page", () => {
     cy.visit("http://localhost:5173/");
 
     // use the "get" command to get something from the page
-    cy.get("header img");
+    cy.get(".main-header").find("img");
   });
+
+  // a link to all expectations
+  // https://docs.cypress.io/app/references/assertions
 
   it("should display the page title", () => {
     cy.visit("http://localhost:5173/");
+    cy.get("h1").should("have.length", 1);
     cy.get("h1").contains("My Cypress Course Tasks");
   });
 });
