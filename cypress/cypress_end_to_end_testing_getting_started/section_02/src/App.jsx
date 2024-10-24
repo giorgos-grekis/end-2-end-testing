@@ -36,7 +36,7 @@ function App() {
         },
       ];
     });
-    setIsAddingTask(false);
+    // setIsAddingTask(false);
   }
 
   function setFilterHandler(category) {
