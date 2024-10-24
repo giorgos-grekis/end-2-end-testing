@@ -24,6 +24,7 @@ describe("tasks management", () => {
     cy.get("#title").type("New Task");
     cy.get("#summary").type("Some description");
     cy.get(".modal").contains("Add Task").click();
+
     cy.get(".backdrop").should("not.exist");
     cy.get(".modal").should("not.exist");
     cy.get(".task").should("have.length", 1);
@@ -54,5 +55,25 @@ describe("tasks management", () => {
     cy.get(".task").should("have.length", 1);
     cy.get("#filter").select("all");
     cy.get(".task").should("have.length", 1);
+  });
+
+  it("should add multiple tasks", () => {
+    cy.visit("http://localhost:5173/");
+
+    cy.contains("Add Task").click();
+    cy.get("#title").type("Task 1");
+    cy.get("#summary").type("First task");
+    cy.get(".modal").contains("Add Task").click();
+    cy.get(".task").should("have.length", 1);
+
+    cy.contains("Add Task").click();
+    cy.get("#title").type("Task 2");
+    cy.get("#summary").type("Second task");
+    cy.get(".modal").contains("Add Task").click();
+    cy.get(".task").should("have.length", 2);
+
+    // https://docs.cypress.io/api/commands/and
+    cy.get(".task").eq(0).contains("First task"); // first()
+    cy.get(".task").eq(1).contains("Second task"); // last()
   });
 });
