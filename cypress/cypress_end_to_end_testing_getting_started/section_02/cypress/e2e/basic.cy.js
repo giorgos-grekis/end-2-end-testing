@@ -7,6 +7,7 @@ describe("tasks page", () => {
     cy.visit("http://localhost:5173/");
 
     // use the "get" command to get something from the page
+    // cy.get('.main-header img')
     cy.get(".main-header").find("img");
   });
 
