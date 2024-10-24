@@ -7,6 +7,11 @@ describe("tasks page", () => {
     cy.visit("http://localhost:5173/");
 
     // use the "get" command to get something from the page
-    cy.get("img");
+    cy.get("header img");
+  });
+
+  it("should display the page title", () => {
+    cy.visit("http://localhost:5173/");
+    cy.get("h1").contains("My Cypress Course Tasks");
   });
 });
