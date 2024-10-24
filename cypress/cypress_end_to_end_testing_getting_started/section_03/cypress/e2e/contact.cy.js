@@ -24,7 +24,9 @@ describe("contact form", () => {
       expect(el.text()).to.contain("Send Message");
     });
 
+    cy.screenshot();
     cy.get('[data-cy="contact-input-email"]').type("test@test.com{enter}");
+    cy.screenshot();
 
     // const btn = cy.get('[data-cy="contact-btn-submit"]');
     // recommended way is to store the value into the alias
@@ -45,27 +47,37 @@ describe("contact form", () => {
     });
     cy.get('[data-cy="contact-btn-submit"]').contains("Send Message");
 
-    cy.get('[data-cy="contact-input-message"]');
+    cy.get('[data-cy="contact-input-message"]').as("msgInput");
 
-    cy.get('[data-cy="contact-input-message"]').blur();
-    cy.get('[data-cy="contact-input-message"]')
+    cy.get("@msgInput").blur();
+    cy.get("@msgInput")
       .parent()
-      .then((el) => {
-        expect(el.attr("class")).to.contains("invalid");
-      });
+      .should("have.attr", "class")
+      .and("match", /invalid/);
+    //   .then((el) => {
+    //     expect(el.attr("class")).to.contains("invalid");
+    //   });
 
     cy.get('[data-cy="contact-input-name"]').focus().blur();
     cy.get('[data-cy="contact-input-name"]')
       .parent()
-      .then((el) => {
-        expect(el.attr("class")).to.contains("invalid");
-      });
+      .should("have.attr", "class")
+      .and("match", /invalid/);
+    //   .then((el) => {
+    //     expect(el.attr("class")).to.contains("invalid");
+    //   });
 
     cy.get('[data-cy="contact-input-email"]').focus().blur();
     cy.get('[data-cy="contact-input-email"]')
       .parent()
-      .then((el) => {
-        expect(el.attr("class")).to.contains("invalid");
+      .should((el) => {
+        expect(el.attr("class")).not.be.undefined;
+        expect(el.attr("class")).contains("invalid");
       });
+    //   .should("have.attr", "class")
+    //   .and("match", /invalid/);
+    //   .then((el) => {
+    //     expect(el.attr("class")).to.contains("invalid");
+    //   });
   });
 });
