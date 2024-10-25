@@ -20,6 +20,7 @@ describe("share location", () => {
             });
           }, 100);
         });
+      cy.stub(win.navigator.clipboard, "writeText").as("saveToClickBoard").resolves();
     });
   });
 
@@ -35,5 +36,7 @@ describe("share location", () => {
   it("should share a location URL", () => {
     cy.get('[data-cy="name-input"]').type("John Doe");
     cy.get('[data-cy="get-loc-btn"]').click();
+    cy.get('[data-cy="share-loc-btn"]').click();
+    cy.get("@saveToClickBoard").should("have.been.called");
   });
 });
