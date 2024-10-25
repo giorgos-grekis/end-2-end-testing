@@ -8,10 +8,25 @@ describe("share location", () => {
       // stub: takes two arguments
       // the first argument points at the object that contains the method you want to replace (window.navigator.geolocation)
       // the second argument is the name if the method you want to replace as a string
-      cy.stub(win.navigator.geolocation, "getCurrentPosition").as("getUserPosition");
+      cy.stub(win.navigator.geolocation, "getCurrentPosition")
+        .as("getUserPosition")
+        .callsFake((cb) => {
+          setTimeout(() => {
+            cb({
+              coords: {
+                latitude: 37.5,
+                longitude: 48.01,
+              },
+            });
+          }, 100);
+        });
     });
 
     cy.get('[data-cy="get-loc-btn"]').click();
     cy.get("@getUserPosition").should("have.been.called");
+    // the button is disabled
+    cy.get('[data-cy="get-loc-btn"]').should("be.disabled");
+
+    cy.get('[data-cy="actions"]').should("contain", "Location fetched!");
   });
 });
