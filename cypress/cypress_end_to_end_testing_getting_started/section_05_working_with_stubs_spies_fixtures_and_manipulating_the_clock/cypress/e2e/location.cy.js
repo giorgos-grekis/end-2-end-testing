@@ -2,6 +2,7 @@
 
 describe("share location", () => {
   beforeEach(() => {
+    cy.clock();
     cy.fixture("user-location.json").as("userLocation");
 
     // This is how then works when used after visit.
@@ -52,6 +53,8 @@ describe("share location", () => {
 
     cy.get('[data-cy="info-message"]').should("be.visible");
     cy.get('[data-cy="info-message"]').should("have.class", "visible");
+
+    cy.tick(2000);
     cy.get('[data-cy="info-message"]').should("not.be.visible");
   });
 });
